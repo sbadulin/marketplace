@@ -13,28 +13,27 @@ const routes = require('./routes/index');
 const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
 
-// create our Express app
+// создаем приложение Express
 const app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views')); // this is the folder where we keep our pug files
-app.set('view engine', 'pug'); // we use the engine pug, mustache or EJS work great too
+// настройка шаблонизатора
+app.set('views', path.join(__dirname, 'views')); // папка для хранения вью-файлов
+app.set('view engine', 'pug'); // используем шаблонизатор pug
 
-// serves up static files from the public folder. Anything in public/ will just be served up as the file it is
+// статику помещаем в папку public
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Takes the raw requests and turns them into usable properties on req.body
+// парсим запросы для req.body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Exposes a bunch of methods for validating data. Used heavily on userController.validateRegister
+// валидаторы, активно используются в userController.validateRegister
 app.use(expressValidator());
 
-// populates req.cookies with any cookies that came along with the request
+// складываем куки из запроса в req.cookies
 app.use(cookieParser());
 
-// Sessions allow us to store data on visitors from request to request
-// This keeps users logged in and allows us to send flash messages
+// храним сесии пользователей, чтобы сохранять их залогиненными и показывать уведомления
 app.use(session({
   secret: process.env.SECRET,
   key: process.env.KEY,
@@ -43,14 +42,14 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
-// // Passport JS is what we use to handle our logins
+// Используем Passport JS для работы с авторизацией
 app.use(passport.initialize());
 app.use(passport.session());
 
-// // The flash middleware let's us use req.flash('error', 'Shit!'), which will then pass that message to the next page the user requests
+// промежуточное ПО для работы с уведомлениями, позволяющее передавать сообщение на следущую запрошенную страницу
 app.use(flash());
 
-// pass variables to our templates + all requests
+// передает переменные в шаблоны
 app.use((req, res, next) => {
   res.locals.h = helpers;
   res.locals.flashes = req.flash();
@@ -59,29 +58,30 @@ app.use((req, res, next) => {
   next();
 });
 
-// promisify some callback based APIs
+// добавляет поддержку промисов для API с коллбэками
 app.use((req, res, next) => {
   req.login = promisify(req.login, req);
   next();
 });
 
-// After allllll that above middleware, we finally handle our own routes!
+// настройки роутинга
 app.use('/', routes);
 
-// If that above routes didnt work, we 404 them and forward to error handler
+// если ни один из роутов не подошел, то направляем пользователя на страницу 404 ошибки
 app.use(errorHandlers.notFound);
 
-// One of our error handlers will see if these errors are just validation errors
+// отлавливаем ошибки валидации
 app.use(errorHandlers.flashValidationErrors);
 
 // Otherwise this was a really bad error we didn't expect! Shoot eh
+// если это другая необработанная ошибка
 if (app.get('env') === 'development') {
-  /* Development Error Handler - Prints stack trace */
+  // в окружении разработки - выводим ошибку
   app.use(errorHandlers.developmentErrors);
 }
 
-// production error handler
+// обрабатываем ошибку в продакшен окружении
 app.use(errorHandlers.productionErrors);
 
-// done! we export it so we can start the site in start.js
+// экспортируем модуль и переходим в start.js
 module.exports = app;
