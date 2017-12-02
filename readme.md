@@ -1,24 +1,24 @@
-## What is this?
+## Описание
 
-Just you wait folks!
+Дипломный проект
 
-## Sample Data
+## Тестовые данные
 
-To load sample data, run the following command in your terminal:
+Для заполнения базы тестовыми данными выполнить команду:
 
 ```bash
 npm run sample
 ```
 
-If you have previously loaded in this data, you can wipe your database 100% clean with:
+Если тестовые данные уже были загружены, то стереть их можно командой
 
 ```bash
 npm run blowitallaway
 ```
 
-That will populate 16 stores with 3 authors and 41 reviews. The logins for the authors are as follows:
+После выполнения команды появятся 16 предприятий, 3 автора и 41 отзыв. Логины:
 
-|Name|Email (login)|Password|
+|Имя|Email (логин)|Пароль|
 |---|---|---|
 |Wes Bos|wes@example.com|wes|
 |Debbie Downer|debbie@example.com|debbie|
