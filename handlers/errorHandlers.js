@@ -1,9 +1,8 @@
 /*
-  Catch Errors Handler
+  Хэндлеры ошибок
 
-  With async/await, you need some way to catch errors
-  Instead of using try{} catch(e) {} in each controller, we wrap the function in
-  catchErrors(), catch any errors they throw, and pass it along to our express middleware with next()
+  Вместо использования try{} catch(e) {} в каждом контроллере, обернем функцию в catchErrors(), 
+  отловим все возникающие ошибки и передадим их по цепочке промежуточного ПО с помощью next
 */
 
 exports.catchErrors = (fn) => {
@@ -15,7 +14,7 @@ exports.catchErrors = (fn) => {
 /*
   Not Found Error Handler
 
-  If we hit a route that is not found, we mark it as 404 and pass it along to the next error handler to display
+  Если перейдем на несуществующий адрес, пометим его как 404 и передадим дальше для отображения ошибки
 */
 exports.notFound = (req, res, next) => {
   const err = new Error('Not Found');
@@ -27,11 +26,11 @@ exports.notFound = (req, res, next) => {
   MongoDB Validation Error Handler
 
   Detect if there are mongodb validation errors that we can nicely show via flash messages
+  Если есть ошибки от валидатора mongodb - отобразим их в виде сообщений
 */
 
 exports.flashValidationErrors = (err, req, res, next) => {
   if (!err.errors) return next(err);
-  // validation errors look like
   const errorKeys = Object.keys(err.errors);
   errorKeys.forEach(key => req.flash('error', err.errors[key].message));
   res.redirect('back');
@@ -41,7 +40,7 @@ exports.flashValidationErrors = (err, req, res, next) => {
 /*
   Development Error Handler
 
-  In development we show good error messages so if we hit a syntax error or any other previously un-handled error, we can show good info on what happened
+  При разработке показем подробные сообщения об ошибках
 */
 exports.developmentErrors = (err, req, res, next) => {
   err.stack = err.stack || '';
@@ -52,11 +51,11 @@ exports.developmentErrors = (err, req, res, next) => {
   };
   res.status(err.status || 500);
   res.format({
-    // Based on the `Accept` http header
+    // основано на http заголовке `Accept`
     'text/html': () => {
       res.render('error', errorDetails);
-    }, // Form Submit, Reload the page
-    'application/json': () => res.json(errorDetails) // Ajax call, send JSON back
+    }, // Отправка формы, перезагрузка страницы
+    'application/json': () => res.json(errorDetails) // Ajax запрос, получаем JSON 
   });
 };
 
@@ -64,7 +63,7 @@ exports.developmentErrors = (err, req, res, next) => {
 /*
   Production Error Handler
 
-  No stacktraces are leaked to user
+  В режиме продакшена скрываем все ошибки
 */
 exports.productionErrors = (err, req, res, next) => {
   res.status(err.status || 500);
