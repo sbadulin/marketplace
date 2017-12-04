@@ -14,7 +14,7 @@ require('dotenv').config({ path: 'variables.env' });
 mongoose.connect(process.env.DATABASE);
 mongoose.Promise = global.Promise; // заставляем mongoose использовать промисы
 mongoose.connection.on('error', (err) => {
-  console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
+  console.error(`Ошибка → ${err.message}`);
 });
 
 
@@ -22,5 +22,5 @@ mongoose.connection.on('error', (err) => {
 const app = require('./app');
 app.set('port', process.env.PORT || 7777);
 const server = app.listen(app.get('port'), () => {
-  console.log(`Express running → PORT ${server.address().port}`);
+  console.log(`Express запущен → PORT ${server.address().port}`);
 });
