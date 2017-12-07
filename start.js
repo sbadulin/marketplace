@@ -17,6 +17,8 @@ mongoose.connection.on('error', (err) => {
   console.error(`Ошибка → ${err.message}`);
 });
 
+// импортируем модели
+require('./models/Store');
 
 // запускаем приложение
 const app = require('./app');

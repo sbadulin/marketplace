@@ -8,7 +8,7 @@ body {
   body:before {
     content: '';
     display: block;
-    background: linear-gradient(90deg, #48ded4 0%, #a026bf 20%, #e82c75 60%, #FFC40E 85%, #48ded4 95%);
+    background: linear-gradient(90deg, #4fb3ec 0%, #6ab6c7 20%, #78c479 60%, #e5772e 85%, #e487ad 95%);
     height: 10px;
     width: 100%; }
 
@@ -510,7 +510,7 @@ label {
 .form {
   background: white;
   padding: 2rem;
-  box-shadow: linear-gradient(90deg, #48ded4 0%, #a026bf 20%, #e82c75 60%, #FFC40E 85%, #48ded4 95%); }
+  box-shadow: linear-gradient(90deg, #4fb3ec 0%, #6ab6c7 20%, #78c479 60%, #e5772e 85%, #e487ad 95%); }
   .form + .form {
     margin-top: 4rem; }
   .form h2 {
@@ -602,6 +602,7 @@ label {
 .nav {
   display: -ms-flexbox;
   display: flex;
+  max-height: 100px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -642,7 +643,7 @@ label {
     .nav__link:hover, .nav__link--active {
       border-bottom-color: rgba(0, 0, 0, 0.2);
       border-right-color: rgba(0, 0, 0, 0.05);
-      background: linear-gradient(90deg, #48ded4 0%, #a026bf 20%, #e82c75 60%, #FFC40E 85%, #48ded4 95%) fixed; }
+      background: linear-gradient(90deg, #4fb3ec 0%, #6ab6c7 20%, #78c479 60%, #e5772e 85%, #e487ad 95%) fixed; }
       .nav__link:hover svg, .nav__link--active svg {
         -ms-transform: scale(1.2);
             transform: scale(1.2); }
@@ -955,7 +956,7 @@ label {
     left: 0;
     content: '';
     display: block;
-    background: linear-gradient(0, #48ded4 0%, #a026bf 20%, #e82c75 60%, #FFC40E 85%, #48ded4 95%);
+    background: linear-gradient(0, #4fb3ec 0%, #6ab6c7 20%, #78c479 60%, #e5772e 85%, #e487ad 95%);
     position: absolute;
     height: 100%;
     background-attachment: fixed; }
