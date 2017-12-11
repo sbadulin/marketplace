@@ -17,7 +17,7 @@ exports.catchErrors = (fn) => {
   Если перейдем на несуществующий адрес, пометим его как 404 и передадим дальше для отображения ошибки
 */
 exports.notFound = (req, res, next) => {
-  const err = new Error('Not Found');
+  const err = new Error('Страница не найдена');
   err.status = 404;
   next(err);
 };
