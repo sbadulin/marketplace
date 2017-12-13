@@ -448,7 +448,8 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-size: 5rem;
   font-family: 'Prata';
-  font-weight: 400; }
+  font-weight: 600;
+  letter-spacing: -1px; }
 
 a {
   text-decoration: none;
@@ -557,13 +558,13 @@ label {
   background: white;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
   margin-bottom: 2rem;
+  margin-top: 2rem;
   padding: 2rem;
   position: relative;
   z-index: 1;
-  border-radius: 3px;
   display: -ms-flexbox;
   display: flex;
-  animation: slideIn forwards .1s ease-in-out 2;
+  animation: slideIn forwards 0.1s ease-in-out 2;
   animation-timing-function: cubic-bezier(0.01, 1.68, 0.58, 1); }
   .flash + .flash {
     animation-delay: 0.55s; }
@@ -578,7 +579,7 @@ label {
     .flash__remove:hover {
       color: #FFC40E; }
   .flash:after {
-    content: '';
+    content: "";
     display: block;
     background: white;
     position: absolute;
@@ -587,12 +588,11 @@ label {
     top: 8px;
     left: 8px;
     z-index: -1;
-    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
-    border-radius: 3px; }
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1); }
   .flash--success {
-    background: linear-gradient(135deg, #d2ff52 0%, #91e842 100%); }
+    background: linear-gradient(135deg, #a1d921 0%, #78c479 100%); }
   .flash--error {
-    background: linear-gradient(20deg, red 0%, #c80000 100%); }
+    background: linear-gradient(20deg, #fe492d 0%, #ea4930 100%); }
   .flash--info {
     background: linear-gradient(35deg, #f1e767 0%, #feb645 100%); }
   .flash p {

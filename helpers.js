@@ -3,27 +3,30 @@
 */
 
 // встроенный в node модуль, который позволяет читать файлы из системы на которой запущен
-const fs = require('fs');
+const fs = require("fs");
 
 // moment.js это библиотека для отображения дат. Нужна в шаблонах для показа вещей типа "Опубликовано 5 минут назад"
-exports.moment = require('moment');
+exports.moment = require("moment");
 
 // Dump используем для отладки, наподобие console.log
-exports.dump = (obj) => JSON.stringify(obj, null, 2);
+exports.dump = obj => JSON.stringify(obj, null, 2);
 
 // Этот хелпер упрощает создание карты через Google Static Maps API
-exports.staticMap = ([lng, lat]) => `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=14&size=800x150&key=${process.env.MAP_KEY}&markers=${lat},${lng}&scale=2`;
+exports.staticMap = ([lng, lat]) =>
+  `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=14&size=800x150&key=${
+    process.env.MAP_KEY
+  }&markers=${lat},${lng}&scale=2`;
 
-// вставка svg-файлов 
-exports.icon = (name) => fs.readFileSync(`./public/images/icons/${name}.svg`);
+// вставка svg-файлов
+exports.icon = name => fs.readFileSync(`./public/images/icons/${name}.svg`);
 
 // Подробности о сайте
 exports.siteName = `Все компании Клиентикс`;
 
 exports.menu = [
-  { slug: '/stores', title: 'Компании', icon: 'store', },
-  { slug: '/tags', title: 'Теги', icon: 'tag', },
-  { slug: '/top', title: 'Лучшие', icon: 'top', },
-  { slug: '/add', title: 'Добавить', icon: 'add', },
-  { slug: '/map', title: 'Карта', icon: 'map', },
+  { slug: "/stores", title: "Компании", icon: "store" },
+  { slug: "/tags", title: "Теги", icon: "tag" },
+  { slug: "/top", title: "Лучшие", icon: "top" },
+  { slug: "/add", title: "Добавить", icon: "add" },
+  { slug: "/map", title: "Карта", icon: "map" }
 ];

@@ -1,27 +1,27 @@
-const express = require('express');
-const session = require('express-session');
-const mongoose = require('mongoose');
-const MongoStore = require('connect-mongo')(session);
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const passport = require('passport');
-const promisify = require('es6-promisify');
-const flash = require('connect-flash');
-const expressValidator = require('express-validator');
-const routes = require('./routes/index');
-const helpers = require('./helpers');
-const errorHandlers = require('./handlers/errorHandlers');
+const express = require("express");
+const session = require("express-session");
+const mongoose = require("mongoose");
+const MongoStore = require("connect-mongo")(session);
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+const passport = require("passport");
+const promisify = require("es6-promisify");
+const flash = require("connect-flash");
+const expressValidator = require("express-validator");
+const routes = require("./routes/index");
+const helpers = require("./helpers");
+const errorHandlers = require("./handlers/errorHandlers");
 
 // создаем приложение Express
 const app = express();
 
 // настройка шаблонизатора
-app.set('views', path.join(__dirname, 'views')); // папка для хранения вью-файлов
-app.set('view engine', 'pug'); // используем шаблонизатор pug
+app.set("views", path.join(__dirname, "views")); // папка для хранения вью-файлов
+app.set("view engine", "pug"); // используем шаблонизатор pug
 
 // статику помещаем в папку public
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 // парсим запросы для req.body
 app.use(bodyParser.json());
@@ -34,13 +34,15 @@ app.use(expressValidator());
 app.use(cookieParser());
 
 // храним сесии пользователей, чтобы сохранять их залогиненными и показывать уведомления
-app.use(session({
-  secret: process.env.SECRET,
-  key: process.env.KEY,
-  resave: false,
-  saveUninitialized: false,
-  store: new MongoStore({ mongooseConnection: mongoose.connection })
-}));
+app.use(
+  session({
+    secret: process.env.SECRET,
+    key: process.env.KEY,
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+  })
+);
 
 // Используем Passport JS для работы с авторизацией
 app.use(passport.initialize());
@@ -64,10 +66,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// настройки роутинга
-app.use('/', routes);
+// настройки маршрутов
+app.use("/", routes);
 
-// если ни один из роутов не подошел, то направляем пользователя на страницу 404 ошибки
+// если ни один из маршрутов не подошел, то направляем пользователя на страницу 404 ошибки
 app.use(errorHandlers.notFound);
 
 // отлавливаем ошибки валидации
@@ -75,7 +77,7 @@ app.use(errorHandlers.flashValidationErrors);
 
 // Otherwise this was a really bad error we didn't expect! Shoot eh
 // если это другая необработанная ошибка
-if (app.get('env') === 'development') {
+if (app.get("env") === "development") {
   // в окружении разработки - выводим ошибку
   app.use(errorHandlers.developmentErrors);
 }
