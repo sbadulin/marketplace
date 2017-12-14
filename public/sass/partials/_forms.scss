@@ -1,6 +1,7 @@
-input, textarea {
-  width:100%;
-  padding:10px;
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
   border: 1px solid $grey;
   &.input {
     &--error {
@@ -21,6 +22,7 @@ label {
   & + .form {
     margin-top: 4rem;
   }
+
   // I know this isn't bem but meh
   h2 {
     margin: 0;
@@ -29,4 +31,7 @@ label {
     margin-bottom: 2rem;
     border-bottom: 1px solid $grey;
   }
+}
+.card .container {
+  margin-bottom: 2rem;
 }

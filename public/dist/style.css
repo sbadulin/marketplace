@@ -433,8 +433,6 @@ template {
   display: none; }
 
 @font-face {
-  font-family: 'prata';
-  src: url("/fonts/prata-regular.woff2") format("woff2"), url("/fonts/prata-regular.woff") format("woff");
   font-weight: normal;
   font-style: normal; }
 
@@ -445,9 +443,14 @@ body {
   font-size: 1.5rem;
   color: #303030; }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-size: 5rem;
-  font-family: 'Prata';
+  font-family: sans-serif;
   font-weight: 600;
   letter-spacing: -1px; }
 
@@ -476,7 +479,7 @@ p {
   .title--long {
     font-size: 30px; }
   .title:before {
-    content: '';
+    content: "";
     width: 50px;
     left: 0;
     top: 0;
@@ -496,11 +499,13 @@ p {
   font-size: 10rem;
   text-align: center; }
 
-input, textarea {
+input,
+textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #e6e6e6; }
-  input.input--error, textarea.input--error {
+  input.input--error,
+  textarea.input--error {
     border-color: red; }
 
 label {
@@ -519,6 +524,9 @@ label {
     padding-bottom: 2rem;
     margin-bottom: 2rem;
     border-bottom: 1px solid #e6e6e6; }
+
+.card .container {
+  margin-bottom: 2rem; }
 
 .search {
   position: relative;
@@ -1102,9 +1110,9 @@ label {
 
 .button {
   border: 0;
-  background: #FFC40E;
+  background: #e06982;
   color: #303030;
-  font-family: 'Prata';
+  font-family: sans-serif;
   font-weight: 600; }
 
 .avatar {
