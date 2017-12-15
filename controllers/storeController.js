@@ -1,18 +1,18 @@
-const mongoose = require("mongoose");
-const Store = mongoose.model("Store");
+const mongoose = require('mongoose');
+const Store = mongoose.model('Store');
 
 exports.homePage = (req, res) => {
-  res.render("index");
+  res.render('index');
 };
 
 exports.addStore = (req, res) => {
-  res.render("editStore", { title: "Добавить компанию" });
+  res.render('editStore', { title: 'Добавить компанию' });
 };
 
 exports.createStore = async (req, res) => {
   const store = await new Store(req.body).save();
   req.flash(
-    "success",
+    'success',
     `Карточка компании <strong>${store.name}</strong> успешно создана!`
   );
   res.redirect(`/store/${store.slug}`);
@@ -20,7 +20,7 @@ exports.createStore = async (req, res) => {
 
 exports.getStores = async (req, res) => {
   const stores = await Store.find();
-  res.render("stores", { title: "Компании", stores });
+  res.render('stores', { title: 'Компании', stores });
 };
 
 exports.editStore = async (req, res) => {
@@ -28,10 +28,12 @@ exports.editStore = async (req, res) => {
   const store = await Store.findOne({ _id: req.params.id });
   // Убедиться, что пользователь это хозяин компании
   // Рисуем форму редактирования
-  res.render("editStore", { title: `Компания ${store.name}`, store });
+  res.render('editStore', { title: `Компания ${store.name}`, store });
 };
 
 exports.updateStore = async (req, res) => {
+  // Устанавливаем местоположение в точку
+  req.body.location.type = 'Point';
   // Находим и обновляем магазин
   const store = await Store.findOneAndUpdate({ _id: req.params.id }, req.body, {
     // Вернет обновленные данные
@@ -39,7 +41,7 @@ exports.updateStore = async (req, res) => {
     runValidators: true
   }).exec();
   req.flash(
-    "success",
+    'success',
     `Карточка компании <strong>${
       store.name
     }</strong> успешно изменена. <a href="/stores/${
