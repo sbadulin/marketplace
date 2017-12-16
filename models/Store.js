@@ -1,12 +1,12 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 mongoose.Promise = global.Promise; // используем промисы es6
-const slug = require("slug"); // понятные адреса
+const slug = require('slug'); // понятные адреса
 
 const storeSchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
-    required: "Введите название компании!"
+    required: 'Введите название компании!'
   },
   slug: String,
   description: {
@@ -21,24 +21,25 @@ const storeSchema = new mongoose.Schema({
   location: {
     type: {
       type: String,
-      default: "Point"
+      default: 'Point'
     },
     coordinates: [
       {
         type: Number,
-        required: "Введите координаты компании!"
+        required: 'Введите координаты компании!'
       }
     ],
     address: {
       type: String,
-      required: "Введите адрес!"
+      required: 'Введите адрес!'
     }
-  }
+  },
+  photo: String
 });
 
-storeSchema.pre("save", function(next) {
+storeSchema.pre('save', function(next) {
   // Если запись не менялась, то пропускаем
-  if (!this.isModified("name")) {
+  if (!this.isModified('name')) {
     next();
     return;
   }
@@ -47,4 +48,4 @@ storeSchema.pre("save", function(next) {
   next();
 });
 
-module.exports = mongoose.model("Store", storeSchema);
+module.exports = mongoose.model('Store', storeSchema);

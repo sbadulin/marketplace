@@ -1,5 +1,22 @@
 const mongoose = require('mongoose');
 const Store = mongoose.model('Store');
+const multer = require('multer');
+// Изменение размера изображений
+const jimp = require('jimp');
+// Уникальные имена для изображений
+const uuid = require('uuid');
+
+const multerOptions = {
+  storage: multer.memoryStorage(),
+  fileFilter(req, file, next) {
+    const isPhoto = file.mimetype.startsWith('image/');
+    if (isPhoto) {
+      next(null, true);
+    } else {
+      next({ message: 'Такой тип файла не поддерживается' }, false);
+    }
+  }
+};
 
 exports.homePage = (req, res) => {
   res.render('index');
@@ -7,6 +24,24 @@ exports.homePage = (req, res) => {
 
 exports.addStore = (req, res) => {
   res.render('editStore', { title: 'Добавить компанию' });
+};
+
+// Загрузка фото в карточку компании
+exports.upload = multer(multerOptions).single('photo');
+
+exports.resize = async (req, res, next) => {
+  // Проверям если файл для ресайза
+  if (!req.file) {
+    next(); // переходим к следующему middleware
+    return;
+  }
+  const extension = req.file.mimetype.split('/')[1];
+  req.body.photo = `${uuid.v4()}.${extension}`;
+  const photo = await jimp.read(req.file.buffer);
+  await photo.resize(800, jimp.AUTO);
+  await photo.write(`./public/uploads/${req.body.photo}`);
+  // сохранили изображение на диск
+  next();
 };
 
 exports.createStore = async (req, res) => {
@@ -33,6 +68,7 @@ exports.editStore = async (req, res) => {
 
 exports.updateStore = async (req, res) => {
   // Устанавливаем местоположение в точку
+  console.log(req.body);
   req.body.location.type = 'Point';
   // Находим и обновляем магазин
   const store = await Store.findOneAndUpdate({ _id: req.params.id }, req.body, {
