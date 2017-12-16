@@ -24,7 +24,7 @@ exports.staticMapYandex = ([lng, lat]) =>
 exports.icon = name => fs.readFileSync(`./public/images/icons/${name}.svg`);
 
 // Подробности о сайте
-exports.siteName = `Все компании Клиентикс`;
+exports.siteName = `Клиентикс.Компании`;
 
 exports.menu = [
   { slug: '/stores', title: 'Компании', icon: 'store' },
