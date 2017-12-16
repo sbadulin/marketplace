@@ -50,12 +50,20 @@ exports.createStore = async (req, res) => {
     'success',
     `Карточка компании <strong>${store.name}</strong> успешно создана!`
   );
-  res.redirect(`/store/${store.slug}`);
+  res.redirect(`/stores/${store.slug}`);
 };
 
 exports.getStores = async (req, res) => {
   const stores = await Store.find();
   res.render('stores', { title: 'Компании', stores });
+};
+
+exports.getStoreBySlug = async (req, res, next) => {
+  const store = await Store.findOne({ slug: req.params.slug });
+  if (!store) {
+    return next();
+  }
+  res.render('store', { store, title: store.name });
 };
 
 exports.editStore = async (req, res) => {

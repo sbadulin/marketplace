@@ -7,6 +7,7 @@ const { catchErrors } = require('../handlers/errorHandlers');
 
 router.get('/', catchErrors(storeController.getStores));
 router.get('/stores', storeController.getStores);
+router.get('/stores/:slug', catchErrors(storeController.getStoreBySlug));
 router.get('/add', storeController.addStore);
 // оборачиваем асинхроннное сохранение компании в обработчик ошибок
 router.post(
