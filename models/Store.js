@@ -37,7 +37,7 @@ const storeSchema = new mongoose.Schema({
   photo: String
 });
 
-storeSchema.pre('save', function(next) {
+storeSchema.pre('save', async function(next) {
   // Если запись не менялась, то пропускаем
   if (!this.isModified('name')) {
     next();
@@ -45,6 +45,13 @@ storeSchema.pre('save', function(next) {
   }
   // Сохраняем алиас страницы
   this.slug = slug(this.name, { lower: true });
+  // обеспечиваем уникальность алиаса
+  const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)`, 'i');
+  // обращаемся к текущей модели
+  const storesWithSlug = await this.constructor.find({ slug: slugRegEx });
+  if (storesWithSlug.length) {
+    this.slug = `${this.slug}-${storesWithSlug.length + 1}`;
+  }
   next();
 });
 
