@@ -55,4 +55,13 @@ storeSchema.pre('save', async function(next) {
   next();
 });
 
+// Добавляем метод-агрегацию для поиска тегов
+storeSchema.statics.getTagsList = function() {
+  return this.aggregate([
+    { $unwind: '$tags' },
+    { $group: { _id: '$tags', count: { $sum: 1 } } },
+    { $sort: { count: -1 } }
+  ]);
+};
+
 module.exports = mongoose.model('Store', storeSchema);
