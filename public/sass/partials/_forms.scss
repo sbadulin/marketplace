@@ -8,6 +8,11 @@ textarea {
       border-color: red;
     }
   }
+  &[type='button'] {
+    background-color: $kpink;
+    width: 100px;
+    margin-top: 20px;
+  }
 }
 
 label {
@@ -23,7 +28,6 @@ label {
     margin-top: 4rem;
   }
 
-  // I know this isn't bem but meh
   h2 {
     margin: 0;
     font-size: 2rem;

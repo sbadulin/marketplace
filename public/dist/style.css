@@ -507,6 +507,11 @@ textarea {
   input.input--error,
   textarea.input--error {
     border-color: red; }
+  input[type='button'],
+  textarea[type='button'] {
+    background-color: #e16982;
+    width: 100px;
+    margin-top: 20px; }
 
 label {
   padding: 10px 0;
