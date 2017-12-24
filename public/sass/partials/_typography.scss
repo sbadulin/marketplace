@@ -9,7 +9,7 @@ html {
 
 body {
   font-size: 1.5rem;
-  color: $black;
+  color: $kdark;
 }
 
 h1,
@@ -19,14 +19,14 @@ h4,
 h5,
 h6 {
   font-size: 5rem;
-  font-family: "Tenor sans", sans-serif;
+  font-family: 'Tenor sans', sans-serif;
   font-weight: 600;
   letter-spacing: -1px;
 }
 
 a {
   text-decoration: none;
-  color: $black;
+  color: whitesmoke;
 }
 
 p a {
@@ -51,7 +51,7 @@ p {
     font-size: 30px;
   }
   &:before {
-    content: "";
+    content: '';
     width: 50px;
     left: 0;
     top: 0;
@@ -66,7 +66,7 @@ p {
   // inline link inside
   a {
     border-bottom: 0;
-    $yellowa: rgba($yellow, 0.8);
+    $yellowa: rgba($kpink, 0.8);
     background-image: linear-gradient(to right, $yellowa 100%, $yellowa 50%);
   }
 }

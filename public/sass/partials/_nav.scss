@@ -5,20 +5,21 @@
   margin: 0;
   padding: 0;
   justify-content: space-between;
-  background: $black;
+  background: $klientiks;
   &__section {
     display: flex;
     &--search {
       flex: 1 1 auto;
+      background-color: #c3c3c3;
     }
   }
   &__item {
     display: flex;
   }
   &__link {
-    background: $black;
-    color: white;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    background: $klientiks;
+    color: $kdark;
+    border-right: 1px solid $kdark;
     text-transform: uppercase;
     padding: 1.2rem 2rem 1rem 2rem;
     display: block;
@@ -29,16 +30,18 @@
     transition: transform 0.2s;
     border-bottom: 5px solid transparent;
     font-family: 'Tenor sans';
+    font-weight: 600;
     svg {
       width: 40px;
       transition: all 0.2s;
-      fill: white;
+      fill: $kdark;
       margin-bottom: 1rem;
+      stroke-width: 10;
     }
     &:hover,
     &--active {
-      border-bottom-color: rgba(0, 0, 0, 0.2);
-      border-right-color: rgba(0, 0, 0, 0.05);
+      border-bottom-color: rgba(0, 0, 0, 0.1);
+      border-right-color: rgba(0, 0, 0, 0.1);
       svg {
         transform: scale(1.2);
       }
@@ -101,7 +104,7 @@
       width: 100%;
       &--user {
         order: -1;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid $kdark;
         .avatar {
           min-width: 20px;
           height: 20px;

@@ -1,11 +1,29 @@
-$black: #303030;
+$black: #3e4042;
+$klientiks: #e6e6e6;
+$kdark: #216fa3;
+$klite: #a1e6f1;
+$kpink: #e16982;
 $width: 800px;
 $purple: #262161;
-$yellow: #FFC40E;
-$pink: #EE7297;
-$green: #93FF00;
-$red: #E50714;
+$yellow: #ffc40e;
+$pink: #ee7297;
+$green: #93ff00;
+$red: #e50714;
 $grey: lighten(grey, 40%);
-$shad: 0 0 10px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.05);
-$grad: linear-gradient(90deg, #4fb3ec 0%, #6ab6c7 20%, #78c479 60%, #e5772e 85%, #e487ad 95%);
-$verticalGrad: linear-gradient(0, #4fb3ec 0%, #6ab6c7 20%, #78c479 60%, #e5772e 85%, #e487ad 95%);
+$shad: 0 0 10px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05);
+$grad: linear-gradient(
+  90deg,
+  #4fb3ec 0%,
+  #6ab6c7 20%,
+  #78c479 60%,
+  #e5772e 85%,
+  #e487ad 95%
+);
+$verticalGrad: linear-gradient(
+  0,
+  #4fb3ec 0%,
+  #6ab6c7 20%,
+  #78c479 60%,
+  #e5772e 85%,
+  #e487ad 95%
+);

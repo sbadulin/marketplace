@@ -15,7 +15,7 @@ html
           .nav__section.nav__section--pages
             li.nav__item
               a.nav__link.nav__link--logo(href="/")
-                != h.icon('heart')
+                != h.icon('kc_logo')
             each item in h.menu
               li.nav__item
                 a.nav__link(href=item.slug, class=(currentPath.startsWith(item.slug) ? 'nav__link--active' : ''))
