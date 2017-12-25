@@ -456,7 +456,7 @@ h6 {
 
 a {
   text-decoration: none;
-  color: whitesmoke; }
+  color: #216fa3; }
 
 p a {
   border-bottom: 2px solid #ffc40e; }
@@ -491,7 +491,7 @@ p {
         transform: skew(-5deg); }
   .title a {
     border-bottom: 0;
-    background-image: linear-gradient(to right, rgba(225, 105, 130, 0.8) 100%, rgba(225, 105, 130, 0.8) 50%); }
+    background-image: linear-gradient(to right, white 100%, whitesmoke 50%); }
 
 .title--single {
   max-width: 600px;
@@ -836,7 +836,7 @@ label {
         background: #e6e6e6;
         padding: 1rem 1rem 1rem 4rem; }
       .tag__choice input:checked + label {
-        background: #ffc40e; }
+        background: #a1e6f1; }
   .tag__link {
     background: #a1e6f1;
     color: #3e4042;

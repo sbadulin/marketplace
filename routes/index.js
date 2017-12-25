@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const storeController = require('../controllers/storeController');
 const userController = require('../controllers/userController');
+const authController = require('../controllers/authController');
 
 // деструктуризация объекта errorHandlers, берем из него только метод catchErrors
 const { catchErrors } = require('../handlers/errorHandlers');
@@ -31,6 +32,11 @@ router.get('/tags/:tag', catchErrors(storeController.getStoreByTag));
 
 router.get('/login', userController.loginForm);
 router.get('/register', userController.registerForm);
-router.post('/register', userController.validateRegister);
+router.post(
+  '/register',
+  userController.validateRegister,
+  userController.register,
+  authController.login
+);
 
 module.exports = router;
