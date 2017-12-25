@@ -10,7 +10,7 @@ const { catchErrors } = require('../handlers/errorHandlers');
 router.get('/', catchErrors(storeController.getStores));
 router.get('/stores', storeController.getStores);
 router.get('/stores/:slug', catchErrors(storeController.getStoreBySlug));
-router.get('/add', storeController.addStore);
+router.get('/add', authController.isLoggedIn, storeController.addStore);
 // оборачиваем асинхроннное сохранение компании в обработчик ошибок
 router.post(
   '/add',
@@ -31,6 +31,7 @@ router.get('/tags', catchErrors(storeController.getStoreByTag));
 router.get('/tags/:tag', catchErrors(storeController.getStoreByTag));
 
 router.get('/login', userController.loginForm);
+router.post('/login', authController.login);
 router.get('/register', userController.registerForm);
 router.post(
   '/register',
@@ -38,5 +39,10 @@ router.post(
   userController.register,
   authController.login
 );
+
+router.get('/logout', authController.logout);
+
+router.get('/account', authController.isLoggedIn, userController.account);
+router.post('/account', catchErrors(userController.updateAccount));
 
 module.exports = router;
