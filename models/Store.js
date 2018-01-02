@@ -34,7 +34,23 @@ const storeSchema = new mongoose.Schema({
       required: 'Введите адрес!'
     }
   },
-  photo: String
+  photo: String,
+  // связь компании и пользователя
+  author: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: 'Укажите создателя карточки компании'
+  }
+});
+
+// создаем индекс для поиска по текстовым полям
+storeSchema.index({
+  name: 'text',
+  description: 'text'
+});
+// создаем индекс для координат
+storeSchema.index({
+  location: '2dsphere'
 });
 
 storeSchema.pre('save', async function(next) {

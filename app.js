@@ -77,7 +77,6 @@ app.use(errorHandlers.notFound);
 // отлавливаем ошибки валидации
 app.use(errorHandlers.flashValidationErrors);
 
-// Otherwise this was a really bad error we didn't expect! Shoot eh
 // если это другая необработанная ошибка
 if (app.get('env') === 'development') {
   // в окружении разработки - выводим ошибку

@@ -45,6 +45,7 @@ exports.resize = async (req, res, next) => {
 };
 
 exports.createStore = async (req, res) => {
+  req.body.author = req.user._id;
   const store = await new Store(req.body).save();
   req.flash(
     'success',
@@ -66,11 +67,21 @@ exports.getStoreBySlug = async (req, res, next) => {
   res.render('store', { store, title: store.name });
 };
 
+const confirmOwner = (store, user) => {
+  // карточку могут редактировать автор или админ
+  if (!store.author.equals(user._id) || user.level < 10) {
+    throw Error(
+      'Необходимо быть владельцем компании для редактирования карточки'
+    );
+  }
+};
+
 exports.editStore = async (req, res) => {
   // Находим компанию по id - он находится в params
   const store = await Store.findOne({ _id: req.params.id });
   // Убедиться, что пользователь это хозяин компании
-  // Рисуем форму редактирования
+  confirmOwner(store, req.user);
+  // Отображаем форму редактирования
   res.render('editStore', { title: `Компания ${store.name}`, store });
 };
 
@@ -102,4 +113,50 @@ exports.getStoreByTag = async (req, res) => {
   const storesPromise = Store.find({ tags: tagQuery });
   const [tags, stores] = await Promise.all([tagsPromise, storesPromise]);
   res.render('tag', { tags, title: 'Метки', tag, stores });
+};
+
+exports.searchStores = async (req, res) => {
+  const stores = await Store
+    // Ищем компании
+    .find(
+      {
+        $text: {
+          $search: req.query.q
+        }
+      },
+      {
+        score: { $meta: 'textScore' }
+      }
+      // Сортируем их
+    )
+    .sort({
+      score: { $meta: 'textScore' }
+    })
+    // Получаем 5 лучших результатов
+    .limit(5);
+  res.json(stores);
+};
+
+exports.mapStores = async (req, res) => {
+  const coordinates = [req.query.lng, req.query.lat].map(parseFloat);
+  const q = {
+    location: {
+      $near: {
+        $geometry: {
+          type: 'Point',
+          coordinates
+        },
+        $maxDistance: 10000 // на расстоянии 10 км
+      }
+    }
+  };
+
+  const stores = await Store.find(q)
+    .select('name slug description location photo')
+    .limit(10);
+  res.json(stores);
+};
+
+exports.mapPage = (req, res) => {
+  res.render('map', { title: 'Карта компаний' });
 };
