@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Store = mongoose.model('Store');
+const User = mongoose.model('User');
 const multer = require('multer');
 // Изменение размера изображений
 const jimp = require('jimp');
@@ -60,7 +61,9 @@ exports.getStores = async (req, res) => {
 };
 
 exports.getStoreBySlug = async (req, res, next) => {
-  const store = await Store.findOne({ slug: req.params.slug });
+  const store = await Store.findOne({ slug: req.params.slug }).populate(
+    'author reviews'
+  );
   if (!store) {
     return next();
   }
@@ -159,4 +162,22 @@ exports.mapStores = async (req, res) => {
 
 exports.mapPage = (req, res) => {
   res.render('map', { title: 'Карта компаний' });
+};
+
+exports.heartStore = async (req, res) => {
+  const hearts = req.user.hearts.map(obj => obj.toString());
+  const operator = hearts.includes(req.params.id) ? '$pull' : '$addToSet';
+  const user = await User.findOneAndUpdate(
+    req.user._id,
+    { [operator]: { hearts: req.params.id } },
+    { new: true }
+  );
+  res.json(user);
+};
+
+exports.getHearts = async (req, res) => {
+  const stores = await Store.find({
+    _id: { $in: req.user.hearts }
+  });
+  res.render('stores', { title: 'Понравившиеся компании', stores });
 };

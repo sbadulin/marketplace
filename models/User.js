@@ -22,7 +22,8 @@ const userSchema = new Schema({
     type: String,
     required: 'Пожалуйста введите имя',
     trim: true
-  }
+  },
+  hearts: [{ type: mongoose.Schema.ObjectId, ref: 'Store' }]
 });
 
 userSchema.virtual('gravatar').get(function() {

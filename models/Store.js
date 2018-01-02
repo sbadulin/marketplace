@@ -2,46 +2,52 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise; // используем промисы es6
 const slug = require('slug'); // понятные адреса
 
-const storeSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    trim: true,
-    required: 'Введите название компании!'
-  },
-  slug: String,
-  description: {
-    type: String,
-    trim: true
-  },
-  tags: [String],
-  created: {
-    type: Date,
-    default: Date.now
-  },
-  location: {
-    type: {
+const storeSchema = new mongoose.Schema(
+  {
+    name: {
       type: String,
-      default: 'Point'
+      trim: true,
+      required: 'Введите название компании!'
     },
-    coordinates: [
-      {
-        type: Number,
-        required: 'Введите координаты компании!'
-      }
-    ],
-    address: {
+    slug: String,
+    description: {
       type: String,
-      required: 'Введите адрес!'
+      trim: true
+    },
+    tags: [String],
+    created: {
+      type: Date,
+      default: Date.now
+    },
+    location: {
+      type: {
+        type: String,
+        default: 'Point'
+      },
+      coordinates: [
+        {
+          type: Number,
+          required: 'Введите координаты компании!'
+        }
+      ],
+      address: {
+        type: String,
+        required: 'Введите адрес!'
+      }
+    },
+    photo: String,
+    // связь компании и пользователя
+    author: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+      required: 'Укажите создателя карточки компании'
     }
   },
-  photo: String,
-  // связь компании и пользователя
-  author: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'User',
-    required: 'Укажите создателя карточки компании'
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtual: true }
   }
-});
+);
 
 // создаем индекс для поиска по текстовым полям
 storeSchema.index({
@@ -79,5 +85,11 @@ storeSchema.statics.getTagsList = function() {
     { $sort: { count: -1 } }
   ]);
 };
+
+storeSchema.virtual('reviews', {
+  ref: 'Review',
+  localField: '_id',
+  foreignField: 'store'
+});
 
 module.exports = mongoose.model('Store', storeSchema);

@@ -21,6 +21,7 @@ mongoose.connection.on('error', err => {
 // импортируем модели
 require('./models/Store');
 require('./models/User');
+require('./models/Review');
 
 // запускаем приложение
 const app = require('./app');
