@@ -1,0 +1,11 @@
+mixin review(review)
+  .review__header
+    .review__author
+      img.avatar(src=review.author.gravatar)
+      p= review.author.name
+    .review__stars(title=`Оценка ${review.rating} из 5`)
+      = `★`.repeat(review.rating)
+      = `☆`.repeat(5 - review.rating)
+    time.review__time(datatime=review.created)= h.moment(review.created).lang("ru").fromNow()
+  .review__body
+    p= review.text

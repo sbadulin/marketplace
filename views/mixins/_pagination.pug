@@ -1,0 +1,9 @@
+mixin pagination(page, pages, count)
+  .pagination
+    .pagination__prev
+      if page > 1
+        a(href=`/stores/page/${page-1}`) Назад
+    .pagination__text
+      p Страница #{page} из #{pages} - Всего компаний: #{count}
+    if page < pages 
+      a(href=`/stores/page/${parseFloat(page)+1}`) Вперед
