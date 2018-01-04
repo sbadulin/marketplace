@@ -55,4 +55,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-*.env
+variables.env
+variables.env.now
+
+.idea
