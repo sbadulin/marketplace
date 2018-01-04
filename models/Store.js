@@ -86,10 +86,53 @@ storeSchema.statics.getTagsList = function() {
   ]);
 };
 
+storeSchema.statics.getTopStores = function() {
+  return this.aggregate([
+    // Ищем компании и добавляем к ним обзоры
+    {
+      $lookup: {
+        from: 'reviews',
+        localField: '_id',
+        foreignField: 'store',
+        as: 'reviews'
+      }
+    },
+    // Оставляем только с компании с одним и более отзывами
+    {
+      $match: {
+        'reviews.0': { $exists: true }
+      }
+    },
+    // Добавляем поле со средней оценкой
+    {
+      $addFields: {
+        averageRating: { $avg: '$reviews.rating' }
+      }
+    },
+    // Сортируем по средней оценке
+    {
+      $sort: {
+        averageRating: -1
+      }
+    },
+    // Показываем 10 первых
+    { $limit: 10 }
+  ]);
+};
+
+// Находим отзывы, в которых свойство _id компании равно свойству store отзыва
 storeSchema.virtual('reviews', {
-  ref: 'Review',
-  localField: '_id',
-  foreignField: 'store'
+  ref: 'Review', // с каокй моделью связываем
+  localField: '_id', // какое поле у компании
+  foreignField: 'store' // какое поле у отзыва
 });
+
+function autopopulate(next) {
+  this.populate('reviews');
+  next();
+}
+
+storeSchema.pre('find', autopopulate);
+storeSchema.pre('findOne', autopopulate);
 
 module.exports = mongoose.model('Store', storeSchema);

@@ -10,6 +10,7 @@ const { catchErrors } = require('../handlers/errorHandlers');
 
 router.get('/', catchErrors(storeController.getStores));
 router.get('/stores', storeController.getStores);
+router.get('/stores/page/:page', catchErrors(storeController.getStores));
 router.get('/stores/:slug', catchErrors(storeController.getStoreBySlug));
 router.get('/add', authController.isLoggedIn, storeController.addStore);
 // оборачиваем асинхроннное сохранение компании в обработчик ошибок
@@ -57,6 +58,7 @@ router.post(
   authController.isLoggedIn,
   catchErrors(reviewController.addReview)
 );
+router.get('/top', catchErrors(storeController.getTopStores));
 
 // API для поиска по компаниям
 router.get('/api/search', catchErrors(storeController.searchStores));
