@@ -13,6 +13,12 @@ block content
     img.single__map(src=h.staticMapYandex(store.location.coordinates))
     p.single__location= store.location.address
     p= store.description
+    if store.phone
+      p.single__phone Телефон: #{store.phone}
+
+    if store.voz
+      p.single__voz
+        a(href=`${store.voz}` rel="noopener" target="_blank") Перейдите к онлайн-записи
 
     if store.tags
       ul.tags

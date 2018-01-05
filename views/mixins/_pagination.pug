@@ -5,5 +5,6 @@ mixin pagination(page, pages, count)
         a(href=`/stores/page/${page-1}`) Назад
     .pagination__text
       p Страница #{page} из #{pages} - Всего компаний: #{count}
-    if page < pages 
-      a(href=`/stores/page/${parseFloat(page)+1}`) Вперед
+    .pagination__next
+      if page < pages 
+        a(href=`/stores/page/${parseFloat(page)+1}`) Вперед

@@ -10,6 +10,11 @@ const storeSchema = new mongoose.Schema(
       required: 'Введите название компании!'
     },
     slug: String,
+    voz: String,
+    phone: {
+      type: String,
+      required: 'Введите телефон компании!'
+    },
     description: {
       type: String,
       trim: true

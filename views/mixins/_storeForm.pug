@@ -5,6 +5,10 @@ mixin storeForm(store = {})
       input(type="text" name="name" value=store.name)
       label(for="description") Описание
       textarea(name="description")=store.description
+      label(for="phone") Телефон
+      input(type="text" name="phone" value=store.phone)
+      label(for="voz") Ссылка на онлайн-запись
+      input(type="text" name="voz" value=store.voz)
       // Загрузка изображений
       label(for="photo") Изображение
       input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
@@ -17,7 +21,7 @@ mixin storeForm(store = {})
       input(type="text" id="lng" name="location[coordinates][0]" value=(store.location && store.location.coordinates[0]))
       label(for="lat") Широта
       input(type="text" id="lat" name="location[coordinates][1]" value=(store.location && store.location.coordinates[1]))
-    - const choices = ['Стрижки', 'Маникюр', 'Педикюр', 'Оплата картой']
+    - const choices = ['Клиника', 'Салон красоты', 'Педикюр', 'СТО', 'Стоматология', 'Ветеринария','Оплата картой']
     - const tags = store.tags || []
     ul.tags
       each choice in choices

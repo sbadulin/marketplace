@@ -497,7 +497,8 @@ p {
   max-width: 600px;
   margin-top: -9rem;
   font-size: 10rem;
-  text-align: center; }
+  text-align: center;
+  overflow-wrap: normal; }
 
 input,
 textarea {
@@ -812,7 +813,7 @@ label {
   list-style: none;
   display: -ms-flexbox;
   display: flex;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap; }
 
@@ -825,7 +826,8 @@ label {
     -ms-flex-pack: center;
         justify-content: center;
     -ms-flex-align: center;
-        align-items: center; }
+        align-items: center;
+    margin-bottom: 1.2rem; }
     .tag__choice input {
       width: auto;
       right: -1.5rem;
@@ -909,8 +911,8 @@ label {
 
 .single__location {
   margin: 0;
-  margin-top: -3rem;
-  margin-right: -5rem;
+  margin-top: -4rem;
+  margin-right: -3rem;
   background: #3e4042;
   color: white;
   display: inline-block;
