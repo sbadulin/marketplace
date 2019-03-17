@@ -1,6 +1,6 @@
 ## Description
 
-Node.js + MongoDB catalogue project
+Companies catalogue project. Express + MongoDB + Pug templates
 
 
 
